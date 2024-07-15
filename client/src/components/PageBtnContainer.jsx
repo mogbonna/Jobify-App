@@ -1,7 +1,7 @@
-import { HiChevronDoubleLeft, HiChevronDoubleRight } from "react-icons/hi";
-import Wrapper from "../assets/wrappers/PageBtnContainer";
-import { useLocation, Link, useNavigate } from "react-router-dom";
-import { useAllJobsContext } from "../pages/AllJobs";
+import { HiChevronDoubleLeft, HiChevronDoubleRight } from 'react-icons/hi';
+import Wrapper from '../assets/wrappers/PageBtnContainer';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
+import { useAllJobsContext } from '../pages/AllJobs';
 
 const PageBtnContainer = () => {
   const {
@@ -16,14 +16,14 @@ const PageBtnContainer = () => {
 
   const handlePageChange = (pageNumber) => {
     const searchParams = new URLSearchParams(search);
-    searchParams.set("page", pageNumber);
+    searchParams.set('page', pageNumber);
     navigate(`${pathname}?${searchParams.toString()}`);
   };
 
   const addPageButton = ({ pageNumber, activeClass }) => {
     return (
       <button
-        className={`btn page-btn ${activeClass && "active"}`}
+        className={`btn page-btn ${activeClass && 'active'}`}
         key={pageNumber}
         onClick={() => handlePageChange(pageNumber)}
       >
@@ -42,7 +42,7 @@ const PageBtnContainer = () => {
 
     if (currentPage > 3) {
       pageButtons.push(
-        <span className="page-btn dots" key="dots-1">
+        <span className='page-btn dots' key='dots-1'>
           ...
         </span>
       );
@@ -77,7 +77,7 @@ const PageBtnContainer = () => {
     }
     if (currentPage < numOfPages - 2) {
       pageButtons.push(
-        <span className="page-btn dots" key="dots+1">
+        <span className='page-btn dots' key='dots+1'>
           ...
         </span>
       );
@@ -94,7 +94,7 @@ const PageBtnContainer = () => {
   return (
     <Wrapper>
       <button
-        className="btn prev-btn"
+        className='btn prev-btn'
         onClick={() => {
           let prevPage = currentPage - 1;
           if (prevPage < 1) prevPage = numOfPages;
@@ -104,9 +104,9 @@ const PageBtnContainer = () => {
         <HiChevronDoubleLeft />
         prev
       </button>
-      <div className="btn-container">{renderPageButtons()}</div>
+      <div className='btn-container'>{renderPageButtons()}</div>
       <button
-        className="btn next-btn"
+        className='btn next-btn'
         onClick={() => {
           let nextPage = currentPage + 1;
           if (nextPage > numOfPages) nextPage = 1;

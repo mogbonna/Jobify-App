@@ -1,27 +1,26 @@
-import { Router } from "express";
-const router = Router();
-import upload from "../middleware/multerMiddleware.js";
-
+import { Router } from 'express';
 import {
-  getCurrentUser,
   getApplicationStats,
+  getCurrentUser,
   updateUser,
-} from "../controllers/userController.js";
-import { validateUpdateUserInput } from "../middleware/validationMiddleware.js";
+} from '../controllers/userController.js';
+import { validateUpdateUserInput } from '../middleware/validationMiddleware.js';
 import {
   authorizePermissions,
   checkForTestUser,
-} from "../middleware/authMiddleware.js";
+} from '../middleware/authMiddleware.js';
+import upload from '../middleware/multerMiddleware.js';
+const router = Router();
 
-router.get("/current-user", getCurrentUser);
-router.get("/admin/app-stats", [
-  authorizePermissions("admin"),
+router.get('/current-user', getCurrentUser);
+router.get('/admin/app-stats', [
+  authorizePermissions('admin'),
   getApplicationStats,
 ]);
 router.patch(
-  "/update-user",
+  '/update-user',
   checkForTestUser,
-  upload.single("avatar"),
+  upload.single('avatar'),
   validateUpdateUserInput,
   updateUser
 );
