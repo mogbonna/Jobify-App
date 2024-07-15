@@ -1,7 +1,7 @@
-import Job from '../models/JobModel.js';
-import { StatusCodes } from 'http-status-codes';
-import mongoose from 'mongoose';
-import day from 'dayjs';
+import Job from "../models/JobModel.js";
+import { StatusCodes } from "http-status-codes";
+import mongoose from "mongoose";
+import day from "dayjs";
 
 export const getAllJobs = async (req, res) => {
   const { search, jobStatus, jobType, sort } = req.query;
@@ -12,23 +12,23 @@ export const getAllJobs = async (req, res) => {
 
   if (search) {
     queryObject.$or = [
-      { position: { $regex: search, $options: 'i' } },
-      { company: { $regex: search, $options: 'i' } },
+      { position: { $regex: search, $options: "i" } },
+      { company: { $regex: search, $options: "i" } },
     ];
   }
 
-  if (jobStatus && jobStatus !== 'all') {
+  if (jobStatus && jobStatus !== "all") {
     queryObject.jobStatus = jobStatus;
   }
-  if (jobType && jobType !== 'all') {
+  if (jobType && jobType !== "all") {
     queryObject.jobType = jobType;
   }
 
   const sortOptions = {
-    newest: '-createdAt',
-    oldest: 'createdAt',
-    'a-z': 'position',
-    'z-a': '-position',
+    newest: "-createdAt",
+    oldest: "createdAt",
+    "a-z": "position",
+    "z-a": "-position",
   };
 
   const sortKey = sortOptions[sort] || sortOptions.newest;
@@ -67,18 +67,18 @@ export const updateJob = async (req, res) => {
     new: true,
   });
 
-  res.status(StatusCodes.OK).json({ msg: 'job modified', job: updatedJob });
+  res.status(StatusCodes.OK).json({ msg: "job modified", job: updatedJob });
 };
 
 export const deleteJob = async (req, res) => {
   const removedJob = await Job.findByIdAndDelete(req.params.id);
-  res.status(StatusCodes.OK).json({ msg: 'job deleted', job: removedJob });
+  res.status(StatusCodes.OK).json({ msg: "job deleted", job: removedJob });
 };
 
 export const showStats = async (req, res) => {
   let stats = await Job.aggregate([
     { $match: { createdBy: new mongoose.Types.ObjectId(req.user.userId) } },
-    { $group: { _id: '$jobStatus', count: { $sum: 1 } } },
+    { $group: { _id: "$jobStatus", count: { $sum: 1 } } },
   ]);
 
   stats = stats.reduce((acc, curr) => {
@@ -97,11 +97,11 @@ export const showStats = async (req, res) => {
     { $match: { createdBy: new mongoose.Types.ObjectId(req.user.userId) } },
     {
       $group: {
-        _id: { year: { $year: '$createdAt' }, month: { $month: '$createdAt' } },
+        _id: { year: { $year: "$createdAt" }, month: { $month: "$createdAt" } },
         count: { $sum: 1 },
       },
     },
-    { $sort: { '_id.year': -1, '_id.month': -1 } },
+    { $sort: { "_id.year": -1, "_id.month": -1 } },
     { $limit: 6 },
   ]);
 
@@ -115,7 +115,7 @@ export const showStats = async (req, res) => {
       const date = day()
         .month(month - 1)
         .year(year)
-        .format('MMM YY');
+        .format("MMM YY");
 
       return { date, count };
     })
