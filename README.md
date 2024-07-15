@@ -4,9 +4,6 @@ Welcome to Jobify-App! 📊
 
 Jobify-App provides insightful statistics about job postings, applications, and hiring trends. With this app, you can easily visualize and understand the job market dynamics.
 
-## Author
-
-
 ## Features
 
 - Job Posting Stats: Track the number of job postings over time.
@@ -41,4 +38,6 @@ Jobify-App provides insightful statistics about job postings, applications, and 
 ## Contributing
 We welcome contributions! Please read our [Contributing Guide](CONTRIBUTING.md) to get started.
 
+## Author
 
+Developed by [Moses Ogbonna](https://github.com/mogbonna).
